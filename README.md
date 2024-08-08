@@ -23,16 +23,16 @@ This is a simple Cartesi DApp to calculate factorials and Fibonacci sequences. I
 
 1. Clone the repository:
 
-   \`\`\`bash
+  ```bash
    git clone https://github.com/romeoscript/cartesi_factorial_fibonacci.git
    cd cartesi_factorial_fibonacci
-   \`\`\`
+  ```
 
 2. Install the dependencies:
 
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 ## Configuration
 
@@ -40,23 +40,23 @@ Set the \`ROLLUP_HTTP_SERVER_URL\` environment variable to the URL of your Carte
 
 For example, you can create a \`.env\` file in the root directory of your project with the following content:
 
-\`\`\`plaintext
+```plaintext
 ROLLUP_HTTP_SERVER_URL=http://localhost:5000
-\`\`\`
+```
 
 Load the environment variables from the \`.env\` file:
 
-\`\`\`bash
+```bash
 source .env
-\`\`\`
+```
 
 ## Usage
 
 Start the DApp by running the following command:
 
-\`\`\`bash
+```bash
 node index.js
-\`\`\`
+```
 
 The DApp will start and continuously listen for requests from the Cartesi rollup server.
 
@@ -69,51 +69,51 @@ This endpoint processes advance state requests to compute factorials and Fibonac
 - **URL:** \`/advance\`
 - **Method:** \`POST\`
 - **Payload:**
-  \`\`\`json
+ ```json
   {
     "payload": "<hex-encoded JSON string>"
   }
-  \`\`\`
+  ```
 
 #### Example Request Payload for Factorial
 
-\`\`\`json
+```json
 {
   "method": "factorial",
   "args": {
     "number": "5"
   }
 }
-\`\`\`
+```
 
 #### Example Response for Factorial
 
-\`\`\`json
+```json
 {
   "number": 5,
   "factorial": 120
 }
-\`\`\`
+```
 
 #### Example Request Payload for Fibonacci
 
-\`\`\`json
+```json
 {
   "method": "fibonacci",
   "args": {
     "number": "10"
   }
 }
-\`\`\`
+```
 
 #### Example Response for Fibonacci
 
-\`\`\`json
+```json
 {
   "number": 10,
   "fibonacci": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 }
-\`\`\`
+```
 
 ### Inspect State
 
@@ -122,40 +122,39 @@ This endpoint processes inspect state requests.
 - **URL:** \`/inspect\`
 - **Method:** \`POST\`
 - **Payload:**
-  \`\`\`json
+ ```json
   {
     "payload": "<hex-encoded string>"
   }
-  \`\`\`
+```
 
 #### Example Request Payload for Factorials List
 
-\`\`\`plaintext
+```plaintext
 "factorials"
-\`\`\`
+```
 
 #### Example Response for Factorials List
 
-\`\`\`json
+```json
 [
   { "number": 5, "factorial": 120 },
   { "number": 6, "factorial": 720 }
 ]
-\`\`\`
+```
 
 #### Example Request Payload for Fibonacci List
-
-\`\`\`plaintext
+```plaintext
 "fibonacci"
-\`\`\`
+```
 
 #### Example Response for Fibonacci List
 
-\`\`\`json
+```json
 [
   { "number": 10, "fibonacci": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] },
   { "number": 5, "fibonacci": [0, 1, 1, 2, 3] }
 ]
-\`\`\`
+```
 
 
