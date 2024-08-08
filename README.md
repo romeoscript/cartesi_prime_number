@@ -158,14 +158,4 @@ This endpoint processes inspect state requests.
 ]
 \`\`\`
 
-## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-If you have any questions or issues, please open an issue on GitHub. Thank you for using this Cartesi DApp to calculate factorials and Fibonacci sequences!
