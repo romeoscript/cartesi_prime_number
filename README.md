@@ -1,7 +1,7 @@
 
-# Prime Number Cartesi DApp
+# Factorial and Fibonacci Cartesi DApp
 
-This is a simple Cartesi DApp to find prime numbers within a given range. It provides an HTTP server that interacts with a rollup server to process requests for computing prime numbers and responding to inspections.
+This is a simple Cartesi DApp to calculate factorials and Fibonacci sequences. It provides an HTTP server that interacts with a rollup server to process requests for computing these sequences and responding to inspections.
 
 ## Table of Contents
 
@@ -24,8 +24,8 @@ This is a simple Cartesi DApp to find prime numbers within a given range. It pro
 1. Clone the repository:
 
    \`\`\`bash
-   git clone https://github.com/romeoscript/cartesi_prime_number.git
-   cd prime-cartesi-dapp
+   git clone https://github.com/romeoscript/cartesi_factorial_fibonacci.git
+   cd cartesi_factorial_fibonacci
    \`\`\`
 
 2. Install the dependencies:
@@ -64,7 +64,7 @@ The DApp will start and continuously listen for requests from the Cartesi rollup
 
 ### Advance State
 
-This endpoint processes advance state requests to compute prime numbers.
+This endpoint processes advance state requests to compute factorials and Fibonacci sequences.
 
 - **URL:** \`/advance\`
 - **Method:** \`POST\`
@@ -75,23 +75,43 @@ This endpoint processes advance state requests to compute prime numbers.
   }
   \`\`\`
 
-#### Example Request Payload
+#### Example Request Payload for Factorial
 
 \`\`\`json
 {
-  "method": "prime",
+  "method": "factorial",
   "args": {
-    "lower": "10",
-    "higher": "50"
+    "number": "5"
   }
 }
 \`\`\`
 
-#### Example Response
+#### Example Response for Factorial
 
 \`\`\`json
 {
-  "primes": [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+  "number": 5,
+  "factorial": 120
+}
+\`\`\`
+
+#### Example Request Payload for Fibonacci
+
+\`\`\`json
+{
+  "method": "fibonacci",
+  "args": {
+    "number": "10"
+  }
+}
+\`\`\`
+
+#### Example Response for Fibonacci
+
+\`\`\`json
+{
+  "number": 10,
+  "fibonacci": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 }
 \`\`\`
 
@@ -108,17 +128,33 @@ This endpoint processes inspect state requests.
   }
   \`\`\`
 
-#### Example Request Payload
+#### Example Request Payload for Factorials List
 
 \`\`\`plaintext
-"primes"
+"factorials"
 \`\`\`
 
-#### Example Response
+#### Example Response for Factorials List
 
 \`\`\`json
 [
-  2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
+  { "number": 5, "factorial": 120 },
+  { "number": 6, "factorial": 720 }
+]
+\`\`\`
+
+#### Example Request Payload for Fibonacci List
+
+\`\`\`plaintext
+"fibonacci"
+\`\`\`
+
+#### Example Response for Fibonacci List
+
+\`\`\`json
+[
+  { "number": 10, "fibonacci": [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] },
+  { "number": 5, "fibonacci": [0, 1, 1, 2, 3] }
 ]
 \`\`\`
 
@@ -132,4 +168,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-If you have any questions or issues, please open an issue on GitHub. Thank you for using this Cartesi DApp to find prime numbers!
+If you have any questions or issues, please open an issue on GitHub. Thank you for using this Cartesi DApp to calculate factorials and Fibonacci sequences!
