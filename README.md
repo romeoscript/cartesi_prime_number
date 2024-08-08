@@ -25,7 +25,7 @@ This is a simple Cartesi DApp to calculate factorials and Fibonacci sequences. I
 
   ```bash
    git clone https://github.com/romeoscript/cartesi_prime_number.git
-   cd cartesi_factorial_fibonacci
+   cd cartesi_prime_number
   ```
 
 2. Install the dependencies:
