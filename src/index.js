@@ -1,31 +1,31 @@
-// XXX even though ethers is not used in the code below, it's very likely
-// it will be used by any DApp, so we are already including it here
+
 const { ethers } = require("ethers");
 var viem = require("viem");
 const rollup_server = process.env.ROLLUP_HTTP_SERVER_URL;
 console.log("HTTP rollup_server url is " + rollup_server);
 
-let primesList = [];
+let factorialsList = [];
+let fibonacciList = [];
 
-const getPrimes = (lower, higher) => {
-  let primes = [];
-  console.log(lower, higher);
-
-  for (let i = lower; i <= higher; i++) {
-    var flag = 0;
-    // looping through 2 to ith for the primality test
-    for (let j = 2; j < i; j++) {
-      if (i % j == 0) {
-        flag = 1;
-        break;
-      }
+const getFactorial = (num) => {
+  if (num < 0) return -1; // Invalid input for factorial
+  else if (num == 0) return 1;
+  else {
+    let factorial = 1;
+    for (let i = 1; i <= num; i++) {
+      factorial *= i;
     }
-    if (flag == 0 && i != 1) {
-      console.log(i);
-      primes.push(i);
-    }
+    return factorial;
   }
-  return primes;
+};
+
+const getFibonacci = (num) => {
+  if (num < 1) return []; // Invalid input for Fibonacci sequence
+  let fib = [0, 1];
+  for (let i = 2; i < num; i++) {
+    fib[i] = fib[i - 1] + fib[i - 2];
+  }
+  return fib.slice(0, num);
 };
 
 async function handle_advance(data) {
@@ -48,17 +48,24 @@ async function handle_advance(data) {
   let url;
   let hexresult;
   try {
-    if (JSONpayload.method === "prime") {
-      console.log("getting the prime numbers");
-      const primes = getPrimes(
-        parseInt(JSONpayload.args.lower),
-        parseInt(JSONpayload.args.higher)
-      );
-      const result = JSON.stringify({ primes: primes });
+    if (JSONpayload.method === "factorial") {
+      console.log("calculating factorial");
+      const num = parseInt(JSONpayload.args.number);
+      const factorial = getFactorial(num);
+      const result = JSON.stringify({ number: num, factorial: factorial });
       hexresult = viem.stringToHex(result);
-      console.log("primes are:", primes);
+      console.log("factorial of", num, "is:", factorial);
       url = String(rollup_server + "/notice");
-      primesList = primesList.concat(...primes);
+      factorialsList.push({ number: num, factorial: factorial });
+    } else if (JSONpayload.method === "fibonacci") {
+      console.log("calculating fibonacci sequence");
+      const num = parseInt(JSONpayload.args.number);
+      const fibonacci = getFibonacci(num);
+      const result = JSON.stringify({ number: num, fibonacci: fibonacci });
+      hexresult = viem.stringToHex(result);
+      console.log("fibonacci sequence up to", num, "terms is:", fibonacci);
+      url = String(rollup_server + "/notice");
+      fibonacciList.push({ number: num, fibonacci: fibonacci });
     } else {
       console.log("method undefined");
       const result = JSON.stringify({
@@ -89,11 +96,13 @@ async function handle_inspect(data) {
   let result;
   try {
     const payloadStr = viem.hexToString(data.payload);
-    if (payloadStr == "primes") {
-      result = viem.stringToHex(JSON.stringify(primesList));
+    if (payloadStr == "factorials") {
+      result = viem.stringToHex(JSON.stringify(factorialsList));
+    } else if (payloadStr == "fibonacci") {
+      result = viem.stringToHex(JSON.stringify(fibonacciList));
     } else {
       result = viem.stringToHex(
-        `This is a simple cartesi Dapp to find primes. payload is ${payloadStr}`
+        `This is a simple Cartesi Dapp to calculate factorials and fibonacci sequences. payload is ${payloadStr}`
       );
     }
   } catch (e) {
